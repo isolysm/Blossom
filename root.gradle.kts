@@ -16,10 +16,10 @@ preprocess {
     val mc11802 = createNode("1.18.2", 11802, "yarn")
     val mc11801 = createNode("1.18.1", 11801, "yarn")
 
-    //Legacy version mappings
-    val mc11202 = createNode("1.12.2", 11202, "srg")
-    val mc10809 = createNode("1.8.9", 10809, "srg")
+    //Legacy version mappings (Forge)
+    // val mc11202 = createNode("1.12.2", 11202, "srg")
+    // val mc10809 = createNode("1.8.9", 10809, "srg")
 
     mc11802.link(mc11801)
-    mc11202.link(mc10809)
+    //mc11202.link(mc10809)
 }
