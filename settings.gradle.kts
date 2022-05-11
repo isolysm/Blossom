@@ -1,5 +1,3 @@
-includeBuild("build-logic")
-
 pluginManagement {
     repositories {
         mavenLocal()
@@ -11,6 +9,7 @@ pluginManagement {
         maven("https://maven.fabricmc.net")
         maven("https://maven.quiltmc.org/repository/release")
         maven("https://maven.minecraftforge.net/")
+        maven("https://maven.architectury.dev/")
     }
     resolutionStrategy {
         eachPlugin {
@@ -26,13 +25,31 @@ pluginManagement {
 rootProject.name = "Blossom"
 rootProject.buildFileName = "root.gradle.kts"
 
-listOf (
-    // Legacy versions that we might not even add whatsoever. (These are mainly for forge)
-    // "1.8.9",
-    // "1.12.2",
+include(":forgelegacy")
+
+val blossomVersion = listOf (
+    "1.14-fabric",
+    "1.14.1-fabric",
+    "1.14.2-fabric",
+    "1.14.3-fabric",
+    "1.14.4-fabric",
+    "1.15-fabric",
+    "1.15.1-fabric",
+    "1.15.2-fabric",
+    "1.16-fabric",
+    "1.16.1-fabric",
+    "1.16.2-fabric",
+    "1.16.3-fabric",
+    "1.16.4-fabric",
+    "1.16.5-fabric",
+    "1.17-fabric",
+    "1.17.1-fabric",
+    "1.18-fabric",
     "1.18.1-fabric",
     "1.18.2-fabric"
-).forEach { version ->
+)
+
+blossomVersion.forEach { version ->
     include(":$version")
     project(":$version").apply {
         projectDir = file("versions/$version")
