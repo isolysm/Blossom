@@ -8,7 +8,9 @@ plugins {
     id("io.github.juuxel.loom-quiltflower") version "1.7.1" apply false
 }
 
+version = determineVersion()
 val latestVersion = file("version.txt").readLines().first()
+configurations.register("compileClasspath")
 
 preprocess {
     val fabric11802 = createNode("1.18.2-fabric", 11802, "yarn")
@@ -52,4 +54,26 @@ preprocess {
     fabric11403.link(fabric11402)
     fabric11402.link(fabric11401)
     fabric11401.link(fabric11400)
+}
+
+fun Project.versionFromBuildIdAndBranch(): String {
+    val branch = branch().replace('/', '-')
+    var version = buildId() ?: return "$branch-SNAPSHOT"
+    if (branch != "master") {
+        version += "+$branch"
+    }
+    return version
+}
+
+fun Project.buildId(): String? = project.properties["BUILD_ID"]?.toString()
+
+fun Project.branch(): String = project.properties["branch"]?.toString() ?: try {
+    val stdout = java.io.ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+        standardOutput = stdout
+    }
+    stdout.toString().trim()
+} catch (e: Throwable) {
+    "unknown"
 }
