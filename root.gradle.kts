@@ -8,7 +8,7 @@ plugins {
     id("io.github.juuxel.loom-quiltflower") version "1.7.1" apply false
 }
 
-version = determineVersion()
+version =  tdetermineVersion()
 val latestVersion = file("version.txt").readLines().first()
 configurations.register("compileClasspath")
 
@@ -56,6 +56,7 @@ preprocess {
     fabric11401.link(fabric11400)
 }
 
+/*
 fun Project.versionFromBuildIdAndBranch(): String {
     val branch = branch().replace('/', '-')
     var version = buildId() ?: return "$branch-SNAPSHOT"
@@ -77,3 +78,5 @@ fun Project.branch(): String = project.properties["branch"]?.toString() ?: try {
 } catch (e: Throwable) {
     "unknown"
 }
+
+ */
