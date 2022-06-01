@@ -5,7 +5,7 @@ plugins {
     // id("dev.architectury.loom") version "0.11.0-SNAPSHOT" apply false
     // id("com.replaymod.preprocess") version "738ea1a"
     `preprocessor-module`
-    id("io.github.juuxel.loom-quiltflower") version "1.7.1" apply false
+    id("io.github.juuxel.loom-quiltflower") version "1.7.2" apply false
 }
 
 version =  tdetermineVersion()
