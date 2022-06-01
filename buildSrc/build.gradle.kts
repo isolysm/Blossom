@@ -22,7 +22,7 @@ dependencies {
     implementation("dev.architectury.architectury-pack200:dev.architectury.architectury-pack200.gradle.plugin:0.1.3")
 
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
-    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.8.0")
+    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.10.0")
     implementation("com.guardsquare:proguard-gradle:7.2.1") {
         exclude(group = "org.jetbrains.kotlin")
     }
