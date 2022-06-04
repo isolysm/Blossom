@@ -23,7 +23,7 @@ dependencies {
 
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
     implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.8.0")
-    implementation("com.guardsquare:proguard-gradle:7.2.1") {
+    implementation("com.guardsquare:proguard-gradle:7.2.2") {
         exclude(group = "org.jetbrains.kotlin")
     }
     api("com.github.replaymod:preprocessor:738ea1a")
