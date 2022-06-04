@@ -18,7 +18,7 @@ dependencies {
     implementation(gradleApi())
     implementation(localGroovy())
 
-    api("dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.11.0.263")
+    api("dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.12.0.280")
     implementation("dev.architectury.architectury-pack200:dev.architectury.architectury-pack200.gradle.plugin:0.1.3")
 
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
