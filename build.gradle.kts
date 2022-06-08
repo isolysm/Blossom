@@ -1,66 +1,48 @@
-import org.jetbrains.kotlin.codegen.inline.addReturnsUnitMarker
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("com.github.johnrengelman.shadow")
-    // id("io.github.juuxel.loom-quiltflower")
+    id("org.jetbrains.dokka")
 }
 
-// Primarily for convenience, but a bit extra if you ask me
-rootProject.apply {
-    from(rootProject.file("gradle/publishing.gradle.kts"))
-    from(rootProject.file("gradle/root.gradle.kts"))
-}
-
-group = "dev.shuuyu"
-version = "1.0.0"
-
-val mcMajor: Int by extra
-val mcMinor: Int by extra
-val mcPatch: Int by extra
-val loader: Loader
-    // This is pseudo, and idk why I needed this in the first place lol
-    get() {
-        TODO()
-    }
-val mcVersion = mcMajor * 10000 + mcMinor * 100 + mcPatch
-val mcVersionStr = listOf(mcMajor, mcMinor, mcPatch).dropLastWhile { it == 0 }.joinToString(".")
-val loaderStr = loader.toString().toLowerCase()
-
-val isQuilt = loader == Loader.QUILT
-val isFabric = loader == Loader.FABRIC
-// ONLY SUPPORTS MODERN FORGE, NOT LEGACY FORGE
-val isForge = loader == Loader.FORGE
-
-enum class Loader {
-    QUILT,
-    FABRIC,
-    FORGE
-}
+val mcVersion: Int by extra
 
 repositories {
-    mavenLocal()
-    mavenCentral()
     maven("https://jitpack.io")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://maven.fabricmc.net")
+    maven("https://maven.quiltmc.org/repository/release")
+    maven("https://maven.minecraftforge.net/")
+    maven("https://maven.architectury.dev/")
 }
 
-val setTargetJavaVersion = when {
-    mcVersion >= 11800 -> JavaVersion.VERSION_17
-    else -> throw GradleException("Unknown Minecraft Version, so cannot determine Java Verison.")
+val shadowMe: Configuration by configurations.creating {
+    configurations.implementation.get().extendsFrom(this)
+}
+
+val lwjglImplementation: Configuration by configurations.creating {
+    isTransitive = false
+}
+
+dependencies {
+    lwjglImplementation("org.lwjgl:lwjgl:3.3.1")
+    lwjglImplementation("org.lwjgl:lwjgl-opengl:3.3.1")
+
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.21")
 }
 
 tasks {
-    "compileKotlin"(KotlinCompile::class) {
-        kotlinOptions {
-
-        }
+    "shadowJar"(ShadowJar::class) {
+        configurations = listOf(lwjglImplementation, shadowMe)
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
+    "compileKotlin"(KotlinCompile::class) {
 
+    }
     "compileJava"(JavaCompile::class) {
-        sourceCompatibility = setTargetJavaVersion.toString()
-        targetCompatibility = setTargetJavaVersion.toString()
+
     }
 }
-

@@ -13,10 +13,11 @@ pluginManagement {
     }
     resolutionStrategy {
         eachPlugin {
-            when(requested.id.id) {
-                "com.replaymod.preprocess" -> {
+            if (requested.id.id == "com.replaymod.preprocess") {
                     useModule("com.github.replaymod:preprocessor:${requested.version}")
-                }
+            }
+            if (requested.id.id == "org.jetbrains.dokka") {
+                useModule("org.jetbrains.dokka:dokka-gradle-plugin:${requested.version}")
             }
         }
     }
