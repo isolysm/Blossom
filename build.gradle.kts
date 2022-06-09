@@ -1,14 +1,18 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.ajoberstar.gradle.git.publish.GitPublishExtension
 
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("com.github.johnrengelman.shadow")
     id("org.jetbrains.dokka")
+    id("org.ajoberstar.git-publish")
+    java
+    signing
+    publishing
+    `java-library`
 }
-
-val mcVersion: Int by extra
 
 repositories {
     maven("https://jitpack.io")
@@ -40,9 +44,38 @@ tasks {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
     "compileKotlin"(KotlinCompile::class) {
+        kotlinOptions {
+            freeCompilerArgs = listOf(
 
+            )
+        }
     }
     "compileJava"(JavaCompile::class) {
 
+    }
+}
+
+configure<GitPublishExtension> {
+
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("Blossom") {
+            groupId = "dev.shuuyu"
+        }
+    }
+    repositories {
+        val mavenUser = project.findProperty("maven_user")
+        val mavenPassword = project.findProperty("maven_password")
+        if (mavenUser != null && mavenPassword != null) {
+            maven("") {
+                name = "release"
+                credentials {
+                    username = mavenUser.toString()
+                    password = mavenPassword.toString()
+                }
+            }
+        }
     }
 }
