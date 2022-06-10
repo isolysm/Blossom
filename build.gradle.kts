@@ -56,16 +56,38 @@ tasks {
 }
 
 configure<GitPublishExtension> {
+    repoUri.set("https://github.com/isolysm/blossom.git")
+    branch.set("gh-pages")
 
+    contents {
+        from(project.projectDir.resolve("dokka"))
+    }
+
+    commitMessage.set("Update Dokka Docs")
 }
 
 publishing {
     publications {
         register<MavenPublication>("Blossom") {
             groupId = "dev.shuuyu"
+
+            from(components["java"])
+            artifact(tasks["dokkaJar"])
         }
     }
     repositories {
+        // This was free so I did this lol
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/isolysm/Blossom")
+            credentials {
+                username = (project.findProperty("gpr.user") ?: System.getenv("USERNAME")).toString()
+                password = (project.findProperty("gpr.password") ?: System.getenv("PASSWORD")).toString()
+            }
+        }
+
+        // On hold because Jfrog is being an ass right now
+        /*
         val mavenUser = project.findProperty("maven_user")
         val mavenPassword = project.findProperty("maven_password")
         if (mavenUser != null && mavenPassword != null) {
@@ -77,5 +99,7 @@ publishing {
                 }
             }
         }
+
+         */
     }
 }
