@@ -5,7 +5,7 @@ plugins {
     id("dev.architectury.loom") version "0.12.0-SNAPSHOT" apply false
     id("com.replaymod.preprocess") version "48e02ad"
     id("org.jetbrains.dokka") version "1.6.21" apply false
-    id("org.ajoberstar.git-publish") version "3.0.1" apply false
+    id("org.ajoberstar.git-publish") version "4.1.0" apply false
     // id("io.github.juuxel.loom-quiltflower") version "1.7.1" apply false
 }
 
