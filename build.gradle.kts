@@ -1,18 +1,22 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
+import dev.shuuyu.Platform
 
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
     id("com.github.johnrengelman.shadow")
     id("org.jetbrains.dokka")
+    id("dev.architectury.loom")
     id("org.ajoberstar.git-publish")
     java
     signing
     publishing
     `java-library`
 }
+
+val platform = Platform.of(project)
 
 repositories {
     maven("https://jitpack.io")
@@ -32,6 +36,30 @@ val lwjglImplementation: Configuration by configurations.creating {
 }
 
 dependencies {
+    minecraft("com.mojang:minecraft:${platform.mcVersionStr}")
+
+    if (platform.isQuilt) {
+        val quiltMappings = when(platform.mcVersion) {
+            11900 -> "build.1:v2"
+            11802 -> "build.24:v2"
+            else -> throw GradleException("Unknown MC version, so cannot determine QM mappings.")
+        }
+
+        mappings("org.quiltmc:quilt-mappings:${platform.mcVersionStr}+${quiltMappings}")
+    }
+
+    if (platform.isForge) {
+        val fabricMappings = when(platform.mcVersion) {
+            else -> throw GradleException("Unknown MC version, so cannot determine MCP mappings.")
+        }
+    }
+
+    if (platform.isFabric) {
+        val yarnMappings = when(platform.mcVersion) {
+            else -> throw GradleException("Unknown MC version, so cannot determine Yarn mappings.")
+        }
+    }
+
     lwjglImplementation("org.lwjgl:lwjgl:3.3.1")
     lwjglImplementation("org.lwjgl:lwjgl-opengl:3.3.1")
 
@@ -65,7 +93,7 @@ configure<GitPublishExtension> {
 
     commitMessage.set("Update Dokka Docs")
 }
-
+/*
 publishing {
     publications {
         register<MavenPublication>("Blossom") {
@@ -103,3 +131,4 @@ publishing {
          */
     }
 }
+ */
