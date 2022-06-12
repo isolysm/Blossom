@@ -31,33 +31,69 @@ val shadowMe: Configuration by configurations.creating {
     configurations.implementation.get().extendsFrom(this)
 }
 
+val shadowMeMod: Configuration by configurations.creating {
+    configurations.modImplementation.get().extendsFrom(this)
+}
+
 val lwjglImplementation: Configuration by configurations.creating {
     isTransitive = false
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${platform.mcVersionStr}")
+    shadowMe("com.github.LlamaLad7:MixinExtras:0.0.10")
 
     if (platform.isQuilt) {
         val quiltMappings = when(platform.mcVersion) {
             11900 -> "build.1:v2"
             11802 -> "build.24:v2"
-            else -> throw GradleException("Unknown MC version, so cannot determine QM mappings.")
+            else -> throw GradleException("Unknown MC version, so cannot determine QM mappings. Platform: ${platform.mcVersionStr}")
+        }
+        val qslApi = when(platform.mcVersion) {
+            11900 -> "2.0.0-beta.2"
+            11802 -> "1.1.0-beta.17"
+            else -> throw GradleException("Unknown MC version, so cannot determine QSL version. Version: ${platform.mcVersionStr}")
         }
 
         mappings("org.quiltmc:quilt-mappings:${platform.mcVersionStr}+${quiltMappings}")
     }
 
     if (platform.isForge) {
-        val fabricMappings = when(platform.mcVersion) {
+        val mcpMappings = when(platform.mcVersion) {
             else -> throw GradleException("Unknown MC version, so cannot determine MCP mappings.")
         }
     }
 
     if (platform.isFabric) {
         val yarnMappings = when(platform.mcVersion) {
+            11900 -> "1.19+build.2"
+            11802 -> "1.18.2+build.3"
+            11801 -> "1.18.1+build.22"
+            11701 -> "1.17.1+build.65"
             else -> throw GradleException("Unknown MC version, so cannot determine Yarn mappings.")
         }
+        val fabricApiVersion = when(platform.mcVersion) {
+            11900 -> "0.55.3+1.19"
+            11802 -> "0.55.1+1.18.2"
+            11801 -> "0.46.6+1.18"
+            11701 -> "0.46.1+1.17"
+            else -> throw GradleException("Unknown MC version so cannot determine the Fabric API version.")
+        }
+
+        val fabricApiModules = mutableListOf(
+            "api-base",
+            "networking-v0",
+            "keybindings-v0",
+            "resource-loader-v0",
+            "lifecycle-events-v1"
+        )
+        if (platform.mcVersion >= 11600) {
+            fabricApiModules.add("key-binding-api-v1")
+        }
+
+        mappings("net.fabricmc:yarn:${yarnMappings}:v2")
+        shadowMeMod("net.fabricmc:fabric-loader:0.14.7")
+        shadowMeMod("net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}")
     }
 
     lwjglImplementation("org.lwjgl:lwjgl:3.3.1")
