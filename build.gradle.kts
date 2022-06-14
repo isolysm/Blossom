@@ -138,7 +138,7 @@ publishing {
     repositories {
         maven {
             name = "Releases"
-            url = uri("http://localhost:8080/snapshots")
+            url = uri("http://maven.shuuyu.live/releases")
             credentials {
                 username = null
                 password = null
