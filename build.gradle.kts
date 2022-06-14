@@ -9,6 +9,7 @@ plugins {
     id("com.github.johnrengelman.shadow")
     id("org.jetbrains.dokka")
     id("dev.architectury.loom")
+    // id("com.replaymod.preprocess")
     id("org.ajoberstar.git-publish")
     java
     signing
@@ -17,6 +18,9 @@ plugins {
 }
 
 val platform = Platform.of(project)
+extensions.add("platform", platform)
+
+java.withSourcesJar()
 
 repositories {
     maven("https://jitpack.io")
@@ -129,42 +133,19 @@ configure<GitPublishExtension> {
 
     commitMessage.set("Update Dokka Docs")
 }
-/*
+
 publishing {
-    publications {
-        register<MavenPublication>("Blossom") {
-            groupId = "dev.shuuyu"
-
-            from(components["java"])
-            artifact(tasks["dokkaJar"])
-        }
-    }
     repositories {
-        // This was free so I did this lol
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/isolysm/Blossom")
+            name = "Releases"
+            url = uri("http://localhost:8080/snapshots")
             credentials {
-                username = (project.findProperty("gpr.user") ?: System.getenv("USERNAME")).toString()
-                password = (project.findProperty("gpr.password") ?: System.getenv("PASSWORD")).toString()
+                username = null
+                password = null
+            }
+            authentication {
+                create<BasicAuthentication>("basic")
             }
         }
-
-        // On hold because Jfrog is being an ass right now
-        /*
-        val mavenUser = project.findProperty("maven_user")
-        val mavenPassword = project.findProperty("maven_password")
-        if (mavenUser != null && mavenPassword != null) {
-            maven("") {
-                name = "release"
-                credentials {
-                    username = mavenUser.toString()
-                    password = mavenPassword.toString()
-                }
-            }
-        }
-
-         */
     }
 }
- */
