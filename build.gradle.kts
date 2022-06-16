@@ -2,6 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
 import dev.shuuyu.Platform
+import dev.shuuyu.setJvmDefault
 
 plugins {
     kotlin("jvm")
@@ -19,8 +20,19 @@ plugins {
 
 val platform = Platform.of(project)
 extensions.add("platform", platform)
+extra.set("loom.platform", if (platform.isQuilt) "quilt" else if(platform.isFabric) "fabric" else "forge")
+tasks.compileKotlin.setJvmDefault(if (platform.mcVersion >= 11400) "all" else "all-compatibility")
 
 java.withSourcesJar()
+
+/*
+preprocess {
+    vars.put("MC", mcVersion)
+    vars.put("FABRIC", if (platform.isFabric) 1 else 0)
+    vars.put("FORGE", if (platform.isForge) 1 else 0)
+}
+
+ */
 
 repositories {
     maven("https://jitpack.io")
@@ -29,6 +41,13 @@ repositories {
     maven("https://maven.quiltmc.org/repository/release")
     maven("https://maven.minecraftforge.net/")
     maven("https://maven.architectury.dev/")
+}
+
+loom {
+    runConfigs {
+        all { isIdeConfigGenerated = false}
+        runConfigs["server"].isIdeConfigGenerated = false
+    }
 }
 
 val shadowMe: Configuration by configurations.creating {
@@ -110,13 +129,6 @@ tasks {
     "shadowJar"(ShadowJar::class) {
         configurations = listOf(lwjglImplementation, shadowMe)
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-    "compileKotlin"(KotlinCompile::class) {
-        kotlinOptions {
-            freeCompilerArgs = listOf(
-
-            )
-        }
     }
     "compileJava"(JavaCompile::class) {
 
