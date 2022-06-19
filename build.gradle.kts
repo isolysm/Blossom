@@ -122,7 +122,7 @@ dependencies {
     lwjglImplementation("org.lwjgl:lwjgl:3.3.1")
     lwjglImplementation("org.lwjgl:lwjgl-opengl:3.3.1")
 
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.21")
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
 tasks {
