@@ -53,7 +53,7 @@ val lwjglImplementation: Configuration by configurations.creating {
 
 dependencies {
     minecraft("com.mojang:minecraft:${platform.mcVersionStr}")
-    shadowMe("com.github.LlamaLad7:MixinExtras:0.0.10")
+    shadowMe("com.github.LlamaLad7:MixinExtras:0.0.11")
 
     if (platform.isQuilt) {
         val quiltMappings = when(platform.mcVersion) {
