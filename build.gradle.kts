@@ -104,7 +104,7 @@ dependencies {
         }
 
         mappings("net.fabricmc:yarn:${yarnMappings}:v2")
-        shadowMeMod("net.fabricmc:fabric-loader:0.14.7")
+        shadowMeMod("net.fabricmc:fabric-loader:0.14.8")
         shadowMeMod("net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}")
     }
 
