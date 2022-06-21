@@ -2,7 +2,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
 import dev.shuuyu.Platform
-import dev.shuuyu.setJvmDefault
 
 plugins {
     kotlin("jvm")
@@ -21,18 +20,8 @@ plugins {
 val platform = Platform.of(project)
 extensions.add("platform", platform)
 extra.set("loom.platform", if (platform.isQuilt) "quilt" else if(platform.isFabric) "fabric" else "forge")
-tasks.compileKotlin.setJvmDefault(if (platform.mcVersion >= 11400) "all" else "all-compatibility")
-
 java.withSourcesJar()
 
-/*
-preprocess {
-    vars.put("MC", mcVersion)
-    vars.put("FABRIC", if (platform.isFabric) 1 else 0)
-    vars.put("FORGE", if (platform.isForge) 1 else 0)
-}
-
- */
 
 repositories {
     maven("https://jitpack.io")
@@ -122,7 +111,7 @@ dependencies {
     lwjglImplementation("org.lwjgl:lwjgl:3.3.1")
     lwjglImplementation("org.lwjgl:lwjgl-opengl:3.3.1")
 
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.6.21")
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
 tasks {
@@ -132,6 +121,11 @@ tasks {
     }
     "compileJava"(JavaCompile::class) {
 
+    }
+    "compileKotlin"(KotlinCompile::class) {
+        kotlinOptions {
+            freeCompilerArgs += listOf("-opt-in=kotlin.RequiresOptIn")
+        }
     }
 }
 
@@ -150,7 +144,7 @@ publishing {
     repositories {
         maven {
             name = "Releases"
-            url = uri("http://maven.shuuyu.live/releases")
+            url = uri("https://maven.shuuyu.live/releases")
             credentials {
                 username = null
                 password = null
