@@ -4,6 +4,7 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
         google()
+        maven("https://repo.essential.gg/repository/maven-public")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven("https://jitpack.io")
         maven("https://maven.fabricmc.net")
@@ -37,4 +38,14 @@ blossomVersion.forEach { version ->
         projectDir = file("versions/$version")
         buildFileName = "../../build.gradle.kts"
     }
+}
+
+include(":buildConfigurations")
+include(":fabric")
+include(":quilt") // You don't need this you idiot, but qsl is different in terms of rendering I think
+include(":forge")
+include(":common")
+
+if (JavaVersion.current() > JavaVersion.VERSION_17) {
+    throw GradleException ("You need a Java Version (Minimum is 17) in order to compile.")
 }

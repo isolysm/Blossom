@@ -22,12 +22,7 @@ data class Platform (
     val mcVersionStr = listOf(mcMajor, mcMinor, mcPatch).dropLastWhile { it == 0 }.joinToString(".")
     val loaderStr = loader.toString().toLowerCase()
 
-    /*
-    In reality, I could've added legacy forge (I think arch 0.12 has it idk),
-    but I want to try legacy fabric support. Idk, probably won't work.
-     */
     val isForge = loader == Loader.Forge
-    val isLegacyFabric = loader == Loader.Fabric && mcVersion < 11400
     val isFabric = loader == Loader.Fabric
     val isQuilt = loader == Loader.Quilt
 
