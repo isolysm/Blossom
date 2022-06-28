@@ -13,5 +13,5 @@ repositories {
 }
 
 dependencies {
-
+    implementation(project(":common")) // Requires the common directory for everything lol
 }

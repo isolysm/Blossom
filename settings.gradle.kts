@@ -44,6 +44,7 @@ include(":buildConfigurations")
 include(":fabric")
 include(":quilt") // You don't need this you idiot, but qsl is different in terms of rendering I think
 include(":forge")
+include(":legacy-forge")
 include(":common")
 
 if (JavaVersion.current() > JavaVersion.VERSION_17) {
