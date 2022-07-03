@@ -11,6 +11,12 @@ pluginManagement {
         maven("https://maven.quiltmc.org/repository/release")
         maven("https://maven.minecraftforge.net/")
         maven("https://maven.architectury.dev/")
+        maven("https://repo.essential.gg/repository/maven-public")
+    }
+    plugins {
+        id("gg.essential.defaults") version "0.1.10"
+        id("gg.essential.multi-version.root") version "0.1.10"
+        id("gg.essential.multi-version.api-validation") version "0.1.10"
     }
     resolutionStrategy {
         eachPlugin {
@@ -27,25 +33,26 @@ pluginManagement {
 rootProject.name = "Blossom"
 rootProject.buildFileName = "root.gradle.kts"
 
+include(":platform")
+project(":platform").apply {
+    projectDir = file("versions/")
+    buildFileName = "root.gradle.kts"
+}
+
 val blossomVersion = listOf (
-    "1.18.1-fabric",
-    "1.18.2-fabric"
+    "1.18.2-fabric",
+    "1.19-fabric"
 )
 
 blossomVersion.forEach { version ->
-    include(":$version")
-    project(":$version").apply {
+    include(":platform:$version")
+    project(":platform:$version").apply {
         projectDir = file("versions/$version")
-        buildFileName = "../../build.gradle.kts"
+        buildFileName = "../build.gradle.kts"
     }
 }
 
 include(":buildConfigurations")
-include(":fabric")
-include(":quilt") // You don't need this you idiot, but qsl is different in terms of rendering I think
-include(":forge")
-include(":legacy-forge")
-include(":common")
 
 if (JavaVersion.current() > JavaVersion.VERSION_17) {
     throw GradleException ("You need a Java Version (Minimum is 17) in order to compile.")

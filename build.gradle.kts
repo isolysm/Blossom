@@ -1,21 +1,17 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.ajoberstar.gradle.git.publish.GitPublishExtension
-import dev.shuuyu.Platform
-import net.fabricmc.loom.configuration.ide.IdeConfiguration
-
 plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
-    id("com.github.johnrengelman.shadow")
-    id("org.jetbrains.dokka")
-    // id("dev.architectury.loom")
-    // id("com.replaymod.preprocess")
-    id("org.ajoberstar.git-publish")
+    kotlin("jvm") version "1.7.0" apply false
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.10.1"
+    id("org.jetbrains.dokka") version "1.6.21" apply false
+    id("gg.essential.defaults.loom")
+    id("org.ajoberstar.git-publish") version "4.1.0"
+    `maven-publish`
+    signing
     java
 }
 
+java.withSourcesJar()
+
 rootProject.apply {
     from(rootProject.file("buildConfigurations/publishing.gradle.kts"))
-    from(rootProject.file("buildConfigurations/versions.gradle.kts"))
+    from(rootProject.file("buildConfigurations/versioning.gradle.kts"))
 }
