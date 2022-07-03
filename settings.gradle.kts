@@ -14,9 +14,11 @@ pluginManagement {
         maven("https://repo.essential.gg/repository/maven-public")
     }
     plugins {
-        id("gg.essential.defaults") version "0.1.10"
-        id("gg.essential.multi-version.root") version "0.1.10"
-        id("gg.essential.multi-version.api-validation") version "0.1.10"
+        val egtVersion = "0.1.10"
+        id("gg.essential.defaults.repo") version egtVersion
+        id("gg.essential.defaults.java") version egtVersion
+        id("gg.essential.multi-version.root") version egtVersion
+        id("gg.essential.multi-version.api-validation") version egtVersion
     }
     resolutionStrategy {
         eachPlugin {
@@ -55,5 +57,5 @@ blossomVersion.forEach { version ->
 include(":buildConfigurations")
 
 if (JavaVersion.current() > JavaVersion.VERSION_17) {
-    throw GradleException ("You need a Java Version (Minimum is 17) in order to compile.")
+    throw GradleException("You need a Java Version (Minimum is 17) in order to compile.")
 }
