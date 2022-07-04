@@ -1,9 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.6.21" apply false
     kotlin("plugin.serialization") version "1.6.21" apply false
-    id("com.github.johnrengelman.shadow") version "7.1.2" apply false
-    id("org.jetbrains.dokka") version "1.7.0" apply false
-    id("org.ajoberstar.git-publish") version "4.1.0" apply false
     id("io.github.juuxel.loom-quiltflower") version "1.7.3" apply false
     id("gg.essential.multi-version.root")
     id("gg.essential.multi-version.api-validation")
@@ -16,5 +12,8 @@ preprocess {
     fabric11900.link(fabric11802)
 }
 
-
-
+apiValidation {
+    ignoredProjects.addAll(subprojects.map { it.name })
+    ignoredPackages.add("com.example")
+    nonPublicMarkers.add("org.jetbrains.annotations.ApiStatus\$Internal")
+}

@@ -1,7 +1,8 @@
 # Blossom
 A universal cute configuration for both Forge and Fabric. It's also sleek and modern!
 
-This shouldn't install Essential (I think?), so no need to worry about adding like 80 mods. (No hate towards Essential,
-just not my cup of tea to add dependency mods)
+## Components
 
-**THIS IS AN EXPERIMENTAL LIBRARY. Things are going to be very unstable, regardless of whatever happens. I don't recommend that you use this for personal projects.**
+* [Icones.js.org](https://icones.js.org/) - SVGs for buttons
+* [Google Icons](https://fonts.google.com/icons) - SVGs for buttons
+* [EGT (Essential Gradle Toolkit)](https://github.com/EssentialGG/essential-gradle-toolkit) - Multiplatform support

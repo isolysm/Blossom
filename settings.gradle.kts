@@ -15,6 +15,7 @@ pluginManagement {
     }
     plugins {
         val egtVersion = "0.1.10"
+        id("gg.essential.defaults.loom") version egtVersion
         id("gg.essential.defaults.repo") version egtVersion
         id("gg.essential.defaults.java") version egtVersion
         id("gg.essential.multi-version.root") version egtVersion
@@ -33,7 +34,6 @@ pluginManagement {
 }
 
 rootProject.name = "Blossom"
-rootProject.buildFileName = "root.gradle.kts"
 
 include(":platform")
 project(":platform").apply {
