@@ -7,8 +7,10 @@ plugins {
 
 preprocess {
     val fabric11900 = createNode("1.19-fabric", 11900, "yarn")
+    val forge11900 = createNode("1.19-forge", 11900, "srg")
     val fabric11802 = createNode("1.18.2-fabric", 11802, "yarn")
 
+    forge11900.link(fabric11900)
     fabric11900.link(fabric11802)
 }
 

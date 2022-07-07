@@ -14,7 +14,7 @@ pluginManagement {
         maven("https://repo.essential.gg/repository/maven-public")
     }
     plugins {
-        val egtVersion = "0.1.10"
+        val egtVersion = "0.1.11"
         id("gg.essential.defaults.loom") version egtVersion
         id("gg.essential.defaults.repo") version egtVersion
         id("gg.essential.defaults.java") version egtVersion
@@ -23,9 +23,6 @@ pluginManagement {
     }
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.id == "com.replaymod.preprocess") {
-                    useModule("com.github.replaymod:preprocessor:${requested.version}")
-            }
             if (requested.id.id == "org.jetbrains.dokka") {
                 useModule("org.jetbrains.dokka:dokka-gradle-plugin:${requested.version}")
             }
@@ -43,7 +40,8 @@ project(":platform").apply {
 
 val blossomVersion = listOf (
     "1.18.2-fabric",
-    "1.19-fabric"
+    "1.19-fabric",
+    "1.19-forge",
 )
 
 blossomVersion.forEach { version ->
