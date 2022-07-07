@@ -1,5 +1,5 @@
 plugins {
-    kotlin("plugin.serialization") version "1.6.21" apply false
+    kotlin("plugin.serialization") version "1.7.10" apply false
     id("io.github.juuxel.loom-quiltflower") version "1.7.3" apply false
     id("gg.essential.multi-version.root")
     id("gg.essential.multi-version.api-validation")
