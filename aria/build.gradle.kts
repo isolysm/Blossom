@@ -26,7 +26,7 @@ dependencies {
     implementation("dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.12.0.295")
 
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.10.1")
+    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.11.0")
     implementation("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
     api("com.github.replaymod:preprocessor:48e02ad")
 
