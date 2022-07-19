@@ -32,7 +32,7 @@ dependencies {
 
     implementation("org.ow2.asm:asm-commons:9.3")
     implementation("com.google.guava:guava:31.1-jre")
-    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
 }
 
 gradlePlugin {
