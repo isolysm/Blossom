@@ -1,3 +1,0 @@
-package live.shuuyu.blossom
-
-//
