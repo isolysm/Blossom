@@ -26,13 +26,13 @@ dependencies {
     implementation("dev.architectury.loom:dev.architectury.loom.gradle.plugin:0.12.0.295")
 
     compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.10.1")
+    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.11.0")
     implementation("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
     api("com.github.replaymod:preprocessor:48e02ad")
 
     implementation("org.ow2.asm:asm-commons:9.3")
     implementation("com.google.guava:guava:31.1-jre")
-    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.4.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
 }
 
 gradlePlugin {
