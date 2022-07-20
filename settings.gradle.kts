@@ -24,5 +24,16 @@ pluginManagement {
 rootProject.name = "Blossom"
 
 include(":buildConfigurations")
-include(":blossomConfig")
 include(":aria")
+
+include(":sakura")
+project(":sakura").apply {
+    projectDir = file("sakura/versions")
+    buildFileName = "root.gradle.kts"
+}
+
+include(":blossom")
+project(":blossom").apply {
+    projectDir = file("blossom/versions")
+    buildFileName = "root.gradle.kts"
+}

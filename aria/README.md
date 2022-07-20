@@ -30,7 +30,7 @@ dependencies {
         // Any specific dependencies for Fabric.
     }
     
-    if(platform.isQuilt) {
+    if (platform.isQuilt) {
         // Any specific dependencies for Quilt (I don't know why I did this)
     }
 }
