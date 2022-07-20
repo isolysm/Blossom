@@ -35,11 +35,12 @@ implementation("live.shuuyu:blossom-$mcVersion-fabric:$buildNumber")
 </details>
 
 <details><summary>Quilt</summary>
+
 ```groovy
-modImplementation(include("live.shuuyu:blossom-$mcVersion-fabric:$buildNumber"))
+modImplementation(include("live.shuuyu:blossom-$mcVersion-quilt:$buildNumber"))
 ```
 
 ```kotlin
-modImplementation(include("live.shuuyu:blossom-$mcVersion-fabric:$buildNumber")!!)
+modImplementation(include("live.shuuyu:blossom-$mcVersion-quilt:$buildNumber")!!)
 ```
 </details>
